@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <SPI.h>
 #include <MFRC522.h>
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(19, 18, 5, 4, 3, 2);
+
 
 #define SS_PIN 10
 #define RST_PIN 9
@@ -26,26 +30,29 @@ void setup() {
   mfrc522.PCD_Init();
   myservo.attach(6);
   myservo.write(0);
-  yourservo.attach(3);
+  yourservo.attach(7);
   yourservo.write(0);
   //pinMode(13, OUTPUT);
-  Serial.println("Please scan your RFID TAG");
+  
+  //Serial.println("Please scan your RFID TAG");
+
+  lcd.begin(16, 2);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Welcome to Library");
+  
+
+  
+  
 
 }
 
 
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  
-//  if(userId[1].length()!=0 && userId[2].length()!=0 ){
-//      if(cond==false){
-//          Serial.println("There is no space!!!");
-//         cond = true;
-//      }
-//      
-//      return;
-//  }
+
+   
+ 
   if ( ! mfrc522.PICC_IsNewCardPresent()) 
   {
     return;
@@ -80,10 +87,17 @@ void loop() {
   
   if(id.compareTo(userId[1])==0){
        
-       Serial.println("User 1 takes bag");
-       Serial.print("ID : ");
-       Serial.println(id);
-      //digitalWrite(13, HIGH);
+       //Serial.println("User 1 takes bag");
+       //Serial.print("ID : ");
+       //Serial.println(id);
+       lcd.clear();
+       lcd.setCursor(0, 0);
+       lcd.print("User 1 takes bag");
+       lcd.setCursor(0, 1);
+       lcd.print("ID : ");
+       lcd.setCursor(6, 1);
+       lcd.print(id);
+       
        myservo.write(180);
        delay(3000);
        myservo.write(0);
@@ -92,10 +106,18 @@ void loop() {
   }
   else if(id.compareTo(userId[2])==0){
        
-       Serial.println("User 2 takes bag");
-       Serial.print("ID : ");
-       Serial.println(id);
-      //digitalWrite(13, HIGH);
+//       Serial.println("User 2 takes bag");
+//       Serial.print("ID : ");
+//       Serial.println(id);
+
+       lcd.clear();
+       lcd.setCursor(0, 0);
+       lcd.print("User 2 takes bag");
+       lcd.setCursor(0, 1);
+       lcd.print("ID : ");
+       lcd.setCursor(6, 1);
+       lcd.print(id);
+      
        yourservo.write(180);
        delay(3000);
        yourservo.write(0);
@@ -103,9 +125,16 @@ void loop() {
        cond = true;
   }
   else if(userId[1].length()==0){
-       Serial.println("User 1 register");
-       Serial.print("ID : ");
-       Serial.println(id);
+//       Serial.println("User 1 register");
+//       Serial.print("ID : ");
+//       Serial.println(id);
+       lcd.clear();
+       lcd.setCursor(0, 0);
+       lcd.print("User 1 register");
+       lcd.setCursor(0, 1);
+       lcd.print("ID : ");
+       lcd.setCursor(6, 1);
+       lcd.print(id);
        
        userId[1] = id;
        myservo.write(180);
@@ -113,9 +142,16 @@ void loop() {
        myservo.write(0);
   }
   else if(userId[2].length()==0){
-       Serial.println("User 2 register");
-       Serial.print("ID : ");
-       Serial.println(id);
+//       Serial.println("User 2 register");
+//       Serial.print("ID : ");
+//       Serial.println(id);
+       lcd.clear();
+       lcd.setCursor(0, 0);
+       lcd.print("User 2 register");
+       lcd.setCursor(0, 1);
+       lcd.print("ID : ");
+       lcd.setCursor(6, 1);
+       lcd.print(id);
        
        userId[2] = id;
        yourservo.write(180);
@@ -125,7 +161,11 @@ void loop() {
   else{
        if(userId[1].length()!=0 && userId[2].length()!=0 ){
           if(cond){
-             Serial.println("There is no space!!!");
+             //Serial.println("There is no space!!!");
+             lcd.clear();
+             lcd.setCursor(0, 0);
+             lcd.print("There is no space!!!");
+       
              cond = false;
           }
           
