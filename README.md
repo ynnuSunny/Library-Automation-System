@@ -21,9 +21,9 @@ The components used in this project:
 13) Structure of the whole project
 
 TEAM MEMBER - 
-Hazera Khatun Hira(011201276)
-Md Mehedi Hasan(011201292)
-Sunny Sutradhar(011201084)
-Emam Hasan(011201302)
-Md. Mehedi Hasan Jony(011201336)
+1. Hazera Khatun Hira(011201276)
+2. Md Mehedi Hasan(011201292)
+3. Sunny Sutradhar(011201084)
+4. Emam Hasan(011201302)
+5. Md. Mehedi Hasan Jony(011201336)
 
