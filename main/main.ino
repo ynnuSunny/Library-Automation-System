@@ -7,7 +7,7 @@
 #include <MFRC522.h>
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(19, 18, 5, 4, 3, 2);
+LiquidCrystal lcd(19, 18, 5, 4, 3, 2); // RS = A5, E = A4 , 
 
 
 #define SS_PIN 10
