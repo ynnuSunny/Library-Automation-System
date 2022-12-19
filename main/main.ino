@@ -14,7 +14,8 @@
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
 
-
+#define BOX_ONE_PIN 3
+#define BOX_TWO_PIN 4
 #define LED1 14
 #define LED2 15
 #define LED3 16
@@ -30,6 +31,8 @@ const int buzzer = 5; //buzzer to arduino pin 10
 // Variable to store the time when last event happened
 unsigned long lastEvent = 0;
 
+bool box1IsEmpty = true;
+bool box2IsEmpty = true;
 
 int count = 0;
 int t = 0;
@@ -58,6 +61,9 @@ void setup() {
   pinMode(button, INPUT_PULLUP);
   pinMode(buzzer, OUTPUT); // Set buzzer - pin 9 as an output
   pinMode(sensorPin, INPUT);  // Set sensor pin as an INPUT
+  pinMode(BOX_ONE_PIN,OUTPUT);
+  pinMode(BOX_TWO_PIN,OUTPUT);
+  
 
   //Serial.println("Please scan your RFID TAG");
 
@@ -148,6 +154,8 @@ void loop() {
       delay(3000);
       myservo.write(0);
       userId[1] = "";
+      box1IsEmpty = true;
+      
       cond = true;
       lcd.clear();
       lcd.setCursor(2, 0);
@@ -175,6 +183,7 @@ void loop() {
       delay(3000);
       yourservo.write(0);
       userId[2] = "";
+      box2IsEmpty = true;
       cond = true;
       lcd.clear();
       lcd.setCursor(2, 0);
@@ -195,10 +204,14 @@ void loop() {
       lcd.print("ID: ");
       lcd.setCursor(3, 1);
       lcd.print(id);
+      
     //  delay(4000);
     //  lcd.clear();
 
+     // boxOneEmpty = false;
+      
       userId[1] = id;
+      box1IsEmpty = false;
       myservo.write(180);
       delay(3000);
       myservo.write(0);
@@ -222,7 +235,7 @@ void loop() {
       lcd.print(id);
     //  delay(4000);
     //  lcd.clear();
-
+      box2IsEmpty = false;
       userId[2] = id;
       yourservo.write(180);
       delay(3000);
@@ -271,6 +284,18 @@ void loop() {
 //     }
 //  }
 
+    if(box1IsEmpty){
+       digitalWrite(BOX_ONE_PIN, LOW);
+    }else{
+       digitalWrite(BOX_ONE_PIN, HIGH);
+    }
+
+    if(box2IsEmpty){
+       digitalWrite(BOX_TWO_PIN, LOW);
+    }
+    else{
+       digitalWrite(BOX_TWO_PIN, HIGH);
+    }
  
 
 }
