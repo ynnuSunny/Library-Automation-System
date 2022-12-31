@@ -11,15 +11,15 @@
 
     <title>Document</title>
 </head>
-<body>
+<body style="background-image: url('img/li.jpg');">
 
 
     <!-- new add -->
 
 
 	<!-- SIDEBAR -->
-	<section id="sidebar">
-		<a href="#" class="chip">
+	<section id="sidebar" >
+		<a href="#" class="chip" >
 			<i class='bx bxs-microchip'></i>
 			<span class="text">Digital Library</span>
 		</a>
@@ -45,24 +45,16 @@
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
-		<nav>
+		<nav >
 			<i class='bx bx-menu' ></i>
 			<form action="#">
 				<div class="form-input">
-					<!-- <input type="search" placeholder="Search..."> -->
-					<!-- <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button> -->
-                    <h1></h1>
+					
 				</div>
 			</form>
 			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-			<!-- <a href="#" class="notification">
-				<i class='bx bxs-bell' ></i>
-				<span class="num">8</span>
-			</a> -->
-			<!-- <a href="#" class="profile">
-				<img src="img/people.png">
-			</a> -->
+			<h1 style="font-size:20px;margin-right:800px;">Digital Libray</h1>
+		
 		</nav>
 		<!-- NAVBAR -->
 
@@ -85,8 +77,8 @@
 				</div>
 			</div>
 
-			<ul class="box-info">
-				<li>
+			<ul  class="box-info">
+				<li style="background-color: rgb(17, 127, 151);">
 
 					<span class="text">
                         <h3>LIGHT1</h3>
@@ -96,21 +88,21 @@
 					</span>
 
 				</li>
-				<li>
+				<li style="background-color: rgb(17, 127, 151)">
 					<span class="text">
 
 						<h3>LIGHT2</h3>
-                      
 
-						<button type="submit" style="cursor: pointer; background-color:greenyellow ; width:8vh;">OFF</button>
-						<button  type="submit" style=" cursor: pointer; background-color:greenyellow ;width:8vh;">ON</button>
+						<button  id="lightoff1" type="submit" style="cursor: pointer; background-color:greenyellow ; width:8vh;">OFF</button>
+						<button  id="lighton1"  type="submit" style=" cursor: pointer; background-color:greenyellow ;width:8vh;">ON</button>
+
 					</span>
 				</li>
 			</ul>
 
 
-			<div class="table-data">
-				<div class="order">
+			<div class="table-data" >
+				<div class="order"  style="background-color:#33CCCC">
 					<div class="head">
 						<h3>Student Count</h3>
 					</div>
@@ -126,13 +118,13 @@
 						</tbody>
 					</table>
 				</div>
-				<d iv class="todo">
+				<div class="todo" style="background-color:#5782e0"	>
 					<div class="head">
 						<h3>LOKER BOX</h3>
 
 					</div>
 					<ul class="todo-list" >
-						<li class="completed" id="l1">
+						<li class="completed" id="l1" >
 						
 
 						<p >LOKER1  
@@ -144,6 +136,24 @@
 						</li>
 					</ul>
 				</div>
+
+				<div class="todo" style="background-color:#33CCCC">
+					<div class="head">
+						<h3>TABLE SOUND </h3>
+
+					</div>
+					<ul class="todo-list" >
+
+						<li class="completed" id="l3">
+						
+
+						<p >SOUND 
+								<p id="sound" style="color:rgb(20, 20, 20) ; font-size: 20px"></p> </p>
+						</li>
+						
+					</ul>
+				</div>
+				
 			</div>
 		</main>
 		<!-- MAIN -->
@@ -190,8 +200,16 @@
   var loker1inner=document.getElementById("l1");
   var loker2inner=document.getElementById("l2");
   var counter=document.getElementById("count");
+
   var lighton=document.getElementById("lighton");
   var lightoff=document.getElementById("lightoff");
+
+  var lighton1=document.getElementById("lighton1");
+  var lightoff1=document.getElementById("lightoff1");
+
+  var sound=document.getElementById("sound");
+  var soundinner=document.getElementById("l3");
+
 
 //   for insert data in database
 
@@ -229,6 +247,43 @@ set(ref(db,"Test/status"),{
 });
 
 }
+
+
+
+
+function lightOn1(){
+    lighton1.style.backgroundColor = 'red';
+    lightoff1.style.backgroundColor = 'green';
+    
+
+
+set(ref(db,"Test/light"),{
+     light2:1
+})
+.catch((error)=>{
+    alert("NOT ok"+error);
+
+});
+
+}
+
+function lightOff1(){
+
+    lighton1.style.backgroundColor = 'green';
+    lightoff1.style.backgroundColor = 'red';
+
+
+set(ref(db,"Test/light"),{
+    light2:0
+  
+})
+.catch((error)=>{
+    alert("NOT ok"+error);
+
+});
+
+}
+
 
 
 
@@ -304,19 +359,52 @@ set(ref(db,"Test/status"),{
   }
 
 
+
+  function getSound(){
+
+    const dbref =ref(db);
+    get(child(dbref,"Test/sound")).then((snapshot)=>{
+        if(snapshot.exists()){
+            var re=snapshot.val();
+
+            if(re==1){
+				sound.innerHTML="Noise Detected";
+				soundinner.style.backgroundColor = "red";
+
+            }
+            else{
+				sound.innerHTML="No Noise";
+				soundinner.style.backgroundColor = "green";
+
+
+            }
+
+           
+
+    }
+})
+    .catch((error)=>{
+        alert("NOT ok"+error);
+
+    });
+
+  }
+
+
   
   setInterval(SelectData1,1000);
   setInterval(SelectData2,1000);
   setInterval(countStudent,1000);
+  setInterval(getSound,1000);
 
 
 
-//   btn.addEventListener('click',inter);
-//   btn1.addEventListener('click',SelectData1);
-//   btn2.addEventListener('click',SelectData2);
+
   lighton.addEventListener('click',lightOn);
   lightoff.addEventListener('click',lightOff);
 
+  lighton1.addEventListener('click',lightOn1);
+  lightoff1.addEventListener('click',lightOff1);
 
 </script>
 
