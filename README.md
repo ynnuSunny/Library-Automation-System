@@ -1,3 +1,8 @@
+
+
+![libary1](https://github.com/ynnuSunny/Library-Automation-System/assets/59407058/b648bd40-5076-496f-8440-f31374dd54c4)
+![libary2](https://github.com/ynnuSunny/Library-Automation-System/assets/59407058/8698e833-f9ea-4c76-b426-82fb7153f2a3)
+
 # Library-Automation-System
 we are passing a technology-based society. Based on the technology we are moving forward first. Computer science is a branch of modern technology. In this era, we are using daily necessary components which are maximumly automated. This paper describes how we are moving forward and making ourselves updated civilizations and also describes how we take benefit from it. Using microcontroller devices how we can make an automation system this paper describes a project which is developed. Index Terms— IOT, Arduino, Ultrasonic, RFID Sensor, Sound Sensor, Smart locker, Automation.
 
